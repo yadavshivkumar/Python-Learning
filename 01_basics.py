@@ -1,24 +1,16 @@
-def serve_chai():
-    yield "Cup 1: Masala Chai"
-    yield "Cup 2: Ginger Chai"
-    yield "Cup 3: Elaichi Chai"
+from functools import wraps
+def my_decorator(func):
+    @wraps(func)
+    def wrapper():
+        print("Before function runs")
+        func()
+        print("After function runs")
+    return wrapper
 
-stall = serve_chai()
+@my_decorator
+def greet():
+    print("Hello from decorators class from chaicode")
 
-# for cup in stall:
-#     print(cup)
 
-def get_chai_list():
-    return ["Cup 1", "Cup 2", "Cup 3"]
-
-# generator function
-def get_chai_gen():
-    yield "Cup 1"
-    yield "Cup 2"
-    yield "Cup 3"
-
-chai = get_chai_gen()
-print(next(chai))
-print(next(chai))
-print(next(chai))
-# print(next(chai)) # gives error
+greet()
+print(greet.__name__)
